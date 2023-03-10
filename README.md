@@ -17,7 +17,7 @@ This script installs Docker and Docker Compose on Ubuntu 22.04 using `apt-get`, 
 
 2. Change directory to the cloned repository:
 
-`cd hcint`
+`cd scripts`
 
 3. Make the script executable:
 
