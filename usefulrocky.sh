@@ -16,6 +16,7 @@ show_menu() {
     echo "11. Install PostgreSQL"
     echo "12. Install Zabbix agent"
     echo "13. Install Figlet Docker"
+    echo "14. Set Firewall Rules For Apache 80/443"
     echo "0. Exit"
 }
 
@@ -138,11 +139,19 @@ install_zabbix_agent() {
 # Function to install figlet Docker image with alias figlet
 install_figlet() {
     echo "Installing figlet Docker image..."
-    sudo docker run -d --name figlet joshtriplett/figlet
+    sudo docker run -d --name figlet mwendler/figlet
     sudo echo "alias figlet='docker exec -it figlet figlet'" >> ~/.bashrc
     echo "figlet Docker image installed with alias figlet."
 }
 
+# Function to set firewall rules for http and https
+set_firewall() {
+    echo "Setting Firewall Rules..."
+    sudo firewall-cmd --zone=public --permanent --add-port=80/tcp
+    sudo firewall-cmd --zone=public --permanent --add-port=443/tcp
+    sudo firewall-cmd --reload
+    echo "Firewall Rules Allowing 80 and 443 Set"
+}
 
 # Main loop
 while true; do
@@ -162,6 +171,7 @@ while true; do
         11) install_postgresql;;
         12) install_zabbix_agent;;
         13) install_figlet;;
+        14) set_firewall;;
         0) exit;;
         *) echo "Invalid option";;
     esac
